@@ -20,12 +20,21 @@ export const Router = () => {
         );
     }
 
+    function AuthRoute() {
+        const data = JSON.parse(localStorage.getItem('user'))
+        return (
+            data == null ? <Outlet /> : <Navigate to="/" />
+        );
+    }
+
     return (
         <Routes>
             <Route exact path="/" element={<ProtectedRoute />}>
                 <Route exact path="/" element={<Dashboard />} />
             </Route>
-            <Route path="/auth" element={<AuthView />}></Route>
+            <Route path="/auth" element={<AuthRoute />}>
+                <Route path="/auth" element={<AuthView />} />
+            </Route>
             <Route path="/product/cookies" element={<ProtectedRoute />}>
                 <Route path="/product/cookies" element={<CookiesView />} />
             </Route>
